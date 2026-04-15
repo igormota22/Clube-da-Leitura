@@ -1,9 +1,13 @@
 ﻿
 using ClubeDaLeitura.ConsoleApp.Apresentacao;
+using ClubeDaLeitura.ConsoleApp.Dominio;
 using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
 RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
 TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
+
+Caixa caixa = new Caixa("lancamento", "2", 3);
+repositorioCaixa.Cadastrar(caixa);
 
 while (true)
 {
@@ -54,7 +58,7 @@ while (true)
             }
             else if (opcaoMenuInterno == "4")
             {
-                telaCaixa.Visualizar();
+                telaCaixa.Visualizar(deveApresentar: true);
             }
         }
 

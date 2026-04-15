@@ -23,16 +23,16 @@ public class RepositorioCaixa
     {
         Caixa? caixaSelecionada = null;
 
-        for(int i = 0; i < caixas.Length; i++)
+        for (int i = 0; i < caixas.Length; i++)
         {
             Caixa c = caixas[i];
 
-            if(c == null)
+            if (c == null)
             {
                 continue;
             }
 
-            if(c.Id == idSelecionado)
+            if (c.Id == idSelecionado)
             {
                 caixaSelecionada = c.AtualizarDados(novaCaixa);
                 return true;
@@ -44,5 +44,26 @@ public class RepositorioCaixa
     public Caixa[]? SelecionarTodos()
     {
         return caixas;
+    }
+
+    public bool Excluir(string idSelecionado)
+    {
+        for (int i = 0; i < caixas.Length; i++)
+        {
+            Caixa? c = caixas[i];
+
+            if (c == null)
+            {
+                continue;
+            }
+
+            if (c.Id == idSelecionado)
+            {
+                caixas[i] = null;
+                return true;
+            }
+        }
+
+        return false;
     }
 }

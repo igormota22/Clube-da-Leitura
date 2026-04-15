@@ -51,30 +51,7 @@ public class TelaCaixa
     {
         ObterCabecalho("editar caixa");
 
-        Console.WriteLine(
-            "{0, -7} | {1, -20} | {2, -10} | {3, -20}",
-            "Id", "Etiqueta", "Cor", "Tempo de Empréstimo"
-        );
-
-        Caixa[]? caixas = repositorioCaixa.SelecionarTodos();
-
-        for (int i = 0; i < caixas.Length; i++)
-        {
-            Caixa c = caixas[i];
-
-            if (c == null)
-            {
-                continue;
-
-            }
-
-            Console.WriteLine(
-      "{0, -7} | {1, -20} | {2, -10} | {3, -20}",
-      c.Id, c.Etiqueta, c.Cor, c.DiasDeEmprestimo
-
-  );
-            System.Console.WriteLine("------------------------------------");
-        }
+        Visualizar(deveApresentar: false);
 
         string? idSelecionado;
 
@@ -112,15 +89,83 @@ public class TelaCaixa
 
     public void Excluir()
     {
-        throw new NotImplementedException();
+        ObterCabecalho("excluir caixa");
+
+        Visualizar(deveApresentar: false);
+
+        string? idSelecionado;
+
+        do
+        {
+            System.Console.Write("Informe o id que do registro que deseja editar: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+            {
+                break;
+            }
+        } while (true);
+
+        bool conseguiuExcluir = repositorioCaixa.Excluir(idSelecionado);
+
+        if (!conseguiuExcluir)
+        {
+            System.Console.WriteLine("---------------------------------------------");
+            System.Console.WriteLine("O registro foi não foi encontrado");
+            System.Console.WriteLine("---------------------------------------------");
+            Console.ReadLine();
+
+        }
+
+        System.Console.WriteLine("---------------------------------------------");
+        System.Console.WriteLine("O registro foi excluido com sucesso");
+        System.Console.WriteLine("---------------------------------------------");
+        Console.ReadLine();
     }
 
-    public void Visualizar()
+    public void Visualizar(bool deveApresentar)
     {
-        throw new NotImplementedException();
+        if (deveApresentar)
+
+            ObterCabecalho("visualizar caixas");
+
+        Console.WriteLine(
+           "{0, -7} | {1, -20} | {2, -10} | {3, -20}",
+           "Id", "Etiqueta", "Cor", "Tempo de Empréstimo"
+       );
+
+        Caixa[]? caixas = repositorioCaixa.SelecionarTodos();
+
+        for (int i = 0; i < caixas.Length; i++)
+        {
+            Caixa c = caixas[i];
+
+            if (c == null)
+            {
+                continue;
+
+            }
+            Console.WriteLine(
+    "{0, -7} | {1, -20} | {2, -10} | {3, -20}",
+    c.Id, c.Etiqueta, c.Cor, c.DiasDeEmprestimo
+
+     );
+
+            System.Console.WriteLine("------------------------------------");
+        }
+
+        if (deveApresentar)
+        {
+
+
+            System.Console.WriteLine("Pressione ENTER para continuar");
+            Console.ReadLine();
+        }
+
+
     }
 
-    public void ObterCabecalho(string cabecalho)
+    private void ObterCabecalho(string cabecalho)
     {
         Console.Clear();
         Console.WriteLine("---------------------------------");
