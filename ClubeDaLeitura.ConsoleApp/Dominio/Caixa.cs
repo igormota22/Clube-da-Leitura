@@ -22,4 +22,14 @@ public class Caixa
         Cor = cor;
         DiasDeEmprestimo = diasDeEmprestimo;
     }
+
+    public Caixa AtualizarDados(Caixa caixaAtualizada)
+    {
+        Etiqueta = caixaAtualizada.Etiqueta;
+        Cor = caixaAtualizada.Cor;
+        DiasDeEmprestimo = caixaAtualizada.DiasDeEmprestimo;
+
+        return caixaAtualizada;
+
+    }
 }

@@ -36,54 +36,12 @@ public class TelaCaixa
     public void Cadastrar()
     {
         ObterCabecalho("Cadastrar caixa");
-
-        System.Console.Write("Informe a etiqueta da caixa: ");
-        string? etiqueta = Console.ReadLine();
-
-        Console.WriteLine("---------------------------------");
-        System.Console.WriteLine("Selecione uma das cores validas");
-        Console.ForegroundColor = ConsoleColor.Red;
-        System.Console.WriteLine("1 - Vermelho");
-        Console.ForegroundColor = ConsoleColor.Green;
-        System.Console.WriteLine("2 - Verde");
-        Console.ForegroundColor = ConsoleColor.Blue;
-        System.Console.WriteLine("3 - Azul");
-        Console.ResetColor();
-        System.Console.WriteLine("4 - Branco (padrão)");
-        Console.WriteLine("---------------------------------");
-
-
-        System.Console.Write("Informe a cor da caixa: ");
-        string? Codigocor = Console.ReadLine();
-
-        string cor;
-
-        if (Codigocor == "1")
-        {
-            cor = "Vermelho";
-        }
-        else if (Codigocor == "2")
-        {
-            cor = "Verde";
-        }
-        else if (Codigocor == "3")
-        {
-            cor = "Azul";
-        }
-        else
-        {
-            cor = "Branco";
-        }
-
-        System.Console.WriteLine("Informe o tempo de emprestimo das revistas da caixa: ");
-        int diasDeEmprestimo = Convert.ToInt32(Console.ReadLine());
-
-        Caixa novaCaixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
+        Caixa novaCaixa = ObterDadosCadastrais();
 
         repositorioCaixa.Cadastrar(novaCaixa);
 
         System.Console.WriteLine("---------------------------------------------");
-        System.Console.WriteLine("O registro foi cadstrado com sucesso");
+        System.Console.WriteLine("O registro foi cadastrado com sucesso");
         System.Console.WriteLine("---------------------------------------------");
         Console.ReadLine();
 
@@ -91,7 +49,65 @@ public class TelaCaixa
     }
     public void Editar()
     {
-        throw new NotImplementedException();
+        ObterCabecalho("editar caixa");
+
+        Console.WriteLine(
+            "{0, -7} | {1, -20} | {2, -10} | {3, -20}",
+            "Id", "Etiqueta", "Cor", "Tempo de Empréstimo"
+        );
+
+        Caixa[]? caixas = repositorioCaixa.SelecionarTodos();
+
+        for (int i = 0; i < caixas.Length; i++)
+        {
+            Caixa c = caixas[i];
+
+            if (c == null)
+            {
+                continue;
+
+            }
+
+            Console.WriteLine(
+      "{0, -7} | {1, -20} | {2, -10} | {3, -20}",
+      c.Id, c.Etiqueta, c.Cor, c.DiasDeEmprestimo
+
+  );
+            System.Console.WriteLine("------------------------------------");
+        }
+
+        string? idSelecionado;
+
+        do
+        {
+            System.Console.Write("Informe o id que do registro que deseja editar: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+            {
+                break;
+            }
+        } while (true);
+
+        Caixa novaCaixa = ObterDadosCadastrais();
+
+        bool conseguiuEditar = repositorioCaixa.Editar(idSelecionado, novaCaixa);
+
+        if (!conseguiuEditar)
+        {
+            System.Console.WriteLine("---------------------------------------------");
+            System.Console.WriteLine("O registro foi não foi encontrado");
+            System.Console.WriteLine("---------------------------------------------");
+            Console.ReadLine();
+
+        }
+
+        System.Console.WriteLine("---------------------------------------------");
+        System.Console.WriteLine("O registro foi atualizado com sucesso");
+        System.Console.WriteLine("---------------------------------------------");
+        Console.ReadLine();
+
+
     }
 
     public void Excluir()
@@ -110,6 +126,54 @@ public class TelaCaixa
         Console.WriteLine("---------------------------------");
         Console.WriteLine(cabecalho);
         Console.WriteLine("---------------------------------");
+    }
+
+    private Caixa ObterDadosCadastrais()
+    {
+        System.Console.Write("Informe a etiqueta da caixa: ");
+        string? etiqueta = Console.ReadLine();
+
+        Console.WriteLine("---------------------------------");
+        System.Console.WriteLine("Selecione uma das cores validas");
+        Console.ForegroundColor = ConsoleColor.Red;
+        System.Console.WriteLine("1 - Vermelho");
+        Console.ForegroundColor = ConsoleColor.Green;
+        System.Console.WriteLine("2 - Verde");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        System.Console.WriteLine("3 - Azul");
+        Console.ResetColor();
+        System.Console.WriteLine("4 - Branco (padrão)");
+        Console.WriteLine("---------------------------------");
+
+
+        System.Console.Write("Informe a cor da caixa: ");
+        string? codigoCor = Console.ReadLine();
+
+        string cor;
+
+        if (codigoCor == "1")
+        {
+            cor = "Vermelho";
+        }
+        else if (codigoCor == "2")
+        {
+            cor = "Verde";
+        }
+        else if (codigoCor == "3")
+        {
+            cor = "Azul";
+        }
+        else
+        {
+            cor = "Branco";
+        }
+
+        System.Console.Write("Informe o tempo de emprestimo das revistas da caixa: ");
+        int diasDeEmprestimo = Convert.ToInt32(Console.ReadLine());
+
+        Caixa novaCaixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
+
+        return novaCaixa;
     }
 }
 
