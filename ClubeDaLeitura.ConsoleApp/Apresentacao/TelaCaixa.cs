@@ -137,7 +137,7 @@ public class TelaCaixa
 
         do
         {
-            System.Console.Write("Informe o id que do registro que deseja editar: ");
+            System.Console.Write("Informe o id que do registro que deseja excluir: ");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)

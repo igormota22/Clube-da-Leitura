@@ -13,6 +13,9 @@ TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
 Caixa caixa = new Caixa("lancamento", "Vermelha", 3);
 repositorioCaixa.Cadastrar(caixa);
 
+Revista revista = new Revista("batman", 55, 1947, caixa);
+repositorioRevista.Cadastrar(revista);
+
 while (true)
 {
     Console.Clear();

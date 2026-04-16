@@ -131,7 +131,33 @@ public class TelaRevista
 
     public void Excluir()
     {
+        ObterCabecalho("excluir revista");
 
+        Visualizar(deveApresentar: false);
+
+        string? idSelecionado;
+
+        do
+        {
+            System.Console.Write("Informe o id que do registro que deseja excluir: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+            {
+                break;
+            }
+        } while (true);
+
+        bool conseguiuExcluir = repositorioRevista.Excluir(idSelecionado);
+
+        if (!conseguiuExcluir)
+        {
+            ExibirMensagem("O registro não foi encontrado");
+            return;
+
+        }
+
+        ExibirMensagem("O registro foi excluido com sucesso");
     }
 
     public void Visualizar(bool deveApresentar)
