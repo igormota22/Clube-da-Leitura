@@ -72,7 +72,61 @@ public class TelaRevista
 
     public void Editar()
     {
+        ObterCabecalho("editar revista");
 
+        Visualizar(deveApresentar: false);
+
+        string? idSelecionado;
+
+        do
+        {
+            System.Console.Write("Informe o id  do registro que deseja editar: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+            {
+                break;
+            }
+        } while (true);
+
+        Revista novaRevista = ObterDadosCadastrais();
+
+        string[] erros = novaRevista.Verificar();
+
+        System.Console.WriteLine("-----------------------------------");
+
+        if (erros.Length > 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            for (int i = 0; i < erros.Length; i++)
+            {
+                string erro = erros[i];
+
+                Console.WriteLine(erro);
+            }
+
+
+            Console.ResetColor();
+            System.Console.WriteLine("-----------------------------------");
+            System.Console.WriteLine("Digite ENTER para continuar");
+            Console.ReadLine();
+
+            Editar();
+            return;
+
+        }
+
+        bool conseguiuEditar = repositorioRevista.Editar(idSelecionado, novaRevista);
+
+        if (!conseguiuEditar)
+        {
+            ExibirMensagem("O registro não foi encontrado");
+            return;
+
+        }
+
+        ExibirMensagem("O registro foi atualizado com sucesso");
     }
 
     public void Excluir()
@@ -80,9 +134,9 @@ public class TelaRevista
 
     }
 
-    public void Visualizar(bool deveApresentarRevista)
+    public void Visualizar(bool deveApresentar)
     {
-        if (deveApresentarRevista)
+        if (deveApresentar)
             ObterCabecalho("visualizar revistas");
 
         Console.WriteLine(
@@ -122,7 +176,7 @@ public class TelaRevista
 
         }
 
-        if (deveApresentarRevista)
+        if (deveApresentar)
         {
             System.Console.WriteLine("Pressione ENTER para continuar");
             Console.ReadLine();

@@ -70,29 +70,30 @@ while (true)
         {
             opcaoMenuInterno = telaRevista.ObterOpcaoMenu();
 
-        }
 
-        if (opcaoMenuInterno == "S")
-        {
-            Console.Clear();
-            break;
-        }
 
-        else if (opcaoMenuInterno == "1")
-        {
-            telaRevista.Cadastrar();
-        }
-        else if (opcaoMenuInterno == "2")
-        {
-            telaRevista.Editar();
-        }
-        else if (opcaoMenuInterno == "3")
-        {
-            telaRevista.Excluir();
-        }
-        else if (opcaoMenuInterno == "4")
-        {
-            telaRevista.Visualizar(deveApresentarRevista: true);
+            if (opcaoMenuInterno == "S")
+            {
+                Console.Clear();
+                break;
+            }
+
+            else if (opcaoMenuInterno == "1")
+            {
+                telaRevista.Cadastrar();
+            }
+            else if (opcaoMenuInterno == "2")
+            {
+                telaRevista.Editar();
+            }
+            else if (opcaoMenuInterno == "3")
+            {
+                telaRevista.Excluir();
+            }
+            else if (opcaoMenuInterno == "4")
+            {
+                telaRevista.Visualizar(deveApresentar: true);
+            }
         }
         else if (opcaoMenuPrincipal == "3")
         {

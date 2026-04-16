@@ -60,4 +60,12 @@ public class Revista
 
         return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);
     }
+
+    public void AtualizarDados(Revista revistaAtualizada)
+    {
+        Titulo = revistaAtualizada.Titulo;
+        NumeroDeEdicao = revistaAtualizada.NumeroDeEdicao;
+        AnoDePublicacao = revistaAtualizada.AnoDePublicacao;
+        Caixa = revistaAtualizada.Caixa;
+    }
 }
