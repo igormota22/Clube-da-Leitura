@@ -32,4 +32,25 @@ public class Caixa
         return caixaAtualizada;
 
     }
+
+    public string[] Validar()
+    {
+        string erros = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(Etiqueta))
+        {
+            erros += "O campo '/Etiqueta/' é obrigatório;";
+        }
+        else if (Etiqueta.Length > 50)
+        {
+            erros += "O campo '/Etiqueta/' deve ter no maximo 50 caracteres;";
+        }
+
+        if (DiasDeEmprestimo < 1)
+        {
+            erros += "O campo '/Dias De Emprestimo/' deve ser maior que 0;";
+        }
+
+        return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);
+    }
 }

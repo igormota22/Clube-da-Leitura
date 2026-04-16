@@ -6,7 +6,7 @@ using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
 TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
 
-Caixa caixa = new Caixa("lancamento", "2", 3);
+Caixa caixa = new Caixa("lancamento", "Vermelho", 3);
 repositorioCaixa.Cadastrar(caixa);
 
 while (true)

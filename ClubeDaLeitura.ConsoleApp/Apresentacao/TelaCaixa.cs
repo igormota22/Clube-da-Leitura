@@ -38,14 +38,35 @@ public class TelaCaixa
         ObterCabecalho("Cadastrar caixa");
         Caixa novaCaixa = ObterDadosCadastrais();
 
+        string[] erros = novaCaixa.Validar();
+
+        System.Console.WriteLine("-----------------------------------");
+
+        if (erros.Length > 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            for (int i = 0; i < erros.Length; i++)
+            {
+                string erro = erros[i];
+
+                Console.WriteLine(erro);
+            }
+
+
+            Console.ResetColor();
+            System.Console.WriteLine("-----------------------------------");
+            System.Console.WriteLine("Digite ENTER para continuar");
+            Console.ReadLine();
+
+            Cadastrar();
+            return;
+
+        }
+
         repositorioCaixa.Cadastrar(novaCaixa);
 
-        System.Console.WriteLine("---------------------------------------------");
-        System.Console.WriteLine("O registro foi cadastrado com sucesso");
-        System.Console.WriteLine("---------------------------------------------");
-        Console.ReadLine();
-
-
+        ExibirMensagem("O registro foi cadastrado com sucesso");
     }
     public void Editar()
     {
@@ -68,23 +89,42 @@ public class TelaCaixa
 
         Caixa novaCaixa = ObterDadosCadastrais();
 
+        string[] erros = novaCaixa.Validar();
+
+        System.Console.WriteLine("-----------------------------------");
+
+        if (erros.Length > 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            for (int i = 0; i < erros.Length; i++)
+            {
+                string erro = erros[i];
+
+                Console.WriteLine(erro);
+            }
+
+
+            Console.ResetColor();
+            System.Console.WriteLine("-----------------------------------");
+            System.Console.WriteLine("Digite ENTER para continuar");
+            Console.ReadLine();
+
+            Editar();
+            return;
+
+        }
+
         bool conseguiuEditar = repositorioCaixa.Editar(idSelecionado, novaCaixa);
 
         if (!conseguiuEditar)
         {
-            System.Console.WriteLine("---------------------------------------------");
-            System.Console.WriteLine("O registro foi não foi encontrado");
-            System.Console.WriteLine("---------------------------------------------");
-            Console.ReadLine();
+            ExibirMensagem("O registro não foi encontrado");
+            return;
 
         }
 
-        System.Console.WriteLine("---------------------------------------------");
-        System.Console.WriteLine("O registro foi atualizado com sucesso");
-        System.Console.WriteLine("---------------------------------------------");
-        Console.ReadLine();
-
-
+        ExibirMensagem("O registro foi atualizado com sucesso");
     }
 
     public void Excluir()
@@ -110,17 +150,12 @@ public class TelaCaixa
 
         if (!conseguiuExcluir)
         {
-            System.Console.WriteLine("---------------------------------------------");
-            System.Console.WriteLine("O registro foi não foi encontrado");
-            System.Console.WriteLine("---------------------------------------------");
-            Console.ReadLine();
+            ExibirMensagem("O registro não foi encontrado");
+            return;
 
         }
 
-        System.Console.WriteLine("---------------------------------------------");
-        System.Console.WriteLine("O registro foi excluido com sucesso");
-        System.Console.WriteLine("---------------------------------------------");
-        Console.ReadLine();
+        ExibirMensagem("O registro foi excluido com sucesso");
     }
 
     public void Visualizar(bool deveApresentar)
@@ -219,6 +254,15 @@ public class TelaCaixa
         Caixa novaCaixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
 
         return novaCaixa;
+    }
+
+    private void ExibirMensagem(string mensagem)
+    {
+        System.Console.WriteLine("--------------------------------");
+        System.Console.WriteLine(mensagem);
+        System.Console.WriteLine("--------------------------------");
+        System.Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
     }
 }
 
