@@ -4,9 +4,13 @@ using ClubeDaLeitura.ConsoleApp.Dominio;
 using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
 RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
-TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
+RepositorioRevista repositorioRevista = new RepositorioRevista();
 
-Caixa caixa = new Caixa("lancamento", "Vermelho", 3);
+
+TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
+TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+
+Caixa caixa = new Caixa("lancamento", "Vermelha", 3);
 repositorioCaixa.Cadastrar(caixa);
 
 while (true)
@@ -64,9 +68,32 @@ while (true)
 
         else if (opcaoMenuPrincipal == "2")
         {
+            opcaoMenuInterno = telaRevista.ObterOpcaoMenu();
 
         }
 
+        if (opcaoMenuInterno == "S")
+        {
+            Console.Clear();
+            break;
+        }
+
+        else if (opcaoMenuInterno == "1")
+        {
+            telaRevista.Cadastrar();
+        }
+        else if (opcaoMenuInterno == "2")
+        {
+            telaRevista.Editar();
+        }
+        else if (opcaoMenuInterno == "3")
+        {
+            telaRevista.Excluir();
+        }
+        else if (opcaoMenuInterno == "4")
+        {
+            telaRevista.Visualizar(deveApresentarRevista: true);
+        }
         else if (opcaoMenuPrincipal == "3")
         {
 

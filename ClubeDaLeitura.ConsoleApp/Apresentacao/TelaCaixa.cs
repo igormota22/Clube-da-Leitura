@@ -216,7 +216,7 @@ public class TelaCaixa
         Console.WriteLine("---------------------------------");
         System.Console.WriteLine("Selecione uma das cores validas");
         Console.ForegroundColor = ConsoleColor.Red;
-        System.Console.WriteLine("1 - Vermelho");
+        System.Console.WriteLine("1 - Vermelha");
         Console.ForegroundColor = ConsoleColor.Green;
         System.Console.WriteLine("2 - Verde");
         Console.ForegroundColor = ConsoleColor.Blue;

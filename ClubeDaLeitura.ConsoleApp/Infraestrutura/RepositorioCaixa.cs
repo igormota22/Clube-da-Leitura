@@ -21,29 +21,40 @@ public class RepositorioCaixa
 
     public bool Editar(string idSelecionado, Caixa novaCaixa)
     {
-        Caixa? caixaSelecionada = null;
+        Caixa? CaixaSelecionada = SelecionarPorId(idSelecionado);
+
+        if (CaixaSelecionada == null)
+        {
+            return false;
+
+        }
+
+
+        CaixaSelecionada.AtualizarDados(novaCaixa);
+
+        return true;
+    }
+
+
+    public Caixa? SelecionarPorId(string idSelecionado)
+    {
+        Caixa? CaixaSelecionada = null;
 
         for (int i = 0; i < caixas.Length; i++)
         {
-            Caixa c = caixas[i];
+            Caixa? c = caixas[i];
 
             if (c == null)
-            {
                 continue;
-            }
 
             if (c.Id == idSelecionado)
             {
-                caixaSelecionada = c.AtualizarDados(novaCaixa);
-                return true;
+                CaixaSelecionada = c;
+                break;
             }
         }
-        return false;
-    }
 
-    public Caixa[]? SelecionarTodos()
-    {
-        return caixas;
+        return CaixaSelecionada;
     }
 
     public bool Excluir(string idSelecionado)
@@ -65,5 +76,10 @@ public class RepositorioCaixa
         }
 
         return false;
+    }
+
+    public Caixa[]? SelecionarTodos()
+    {
+        return caixas;
     }
 }

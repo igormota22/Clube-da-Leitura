@@ -1,0 +1,63 @@
+using System;
+using System.Security.Cryptography;
+
+namespace ClubeDaLeitura.ConsoleApp.Dominio;
+
+public class Revista
+{
+    public string Id { get; set; }
+    public string Titulo { get; set; }
+    public int NumeroDeEdicao { get; set; }
+    public int AnoDePublicacao { get; set; }
+    public Caixa Caixa { get; set; }
+
+    public Revista(string titulo, int numeroDeEdicao, int anoDePublicacao, Caixa caixa)
+    {
+        Id = Convert
+      .ToHexString(RandomNumberGenerator.GetBytes(20))
+      .ToLower()
+      .Substring(0, 7);
+
+        Titulo = titulo;
+        NumeroDeEdicao = numeroDeEdicao;
+        AnoDePublicacao = anoDePublicacao;
+        Caixa = caixa;
+    }
+
+    internal string[] Verificar()
+    {
+        string erros = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(Titulo))
+        {
+            erros += "O campo '/Titulo/' é obrigatorio;";
+        }
+        else if (Titulo.Length < 2 || Titulo.Length > 100)
+        {
+            erros += "O campo '/Titulo/' deve ter entre 2 e 100 caracteres;";
+
+        }
+
+        if (NumeroDeEdicao < 0)
+        {
+            erros += "Informe um numero maior ou igual a 0;";
+
+        }
+
+        int anoValido = DateTime.Now.Year;
+
+        if (AnoDePublicacao < 1 || AnoDePublicacao > anoValido)
+        {
+            erros += "Informe uma data valida;";
+
+        }
+
+        if (Caixa == null)
+        {
+            erros += "O campo '/Caixa/' é obrigatorio;";
+
+        }
+
+        return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);
+    }
+}
