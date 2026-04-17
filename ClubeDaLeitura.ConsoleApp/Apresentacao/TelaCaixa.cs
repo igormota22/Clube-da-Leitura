@@ -4,35 +4,18 @@ using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
 namespace ClubeDaLeitura.ConsoleApp.Apresentacao;
 
-public class TelaCaixa
+public class TelaCaixa : TelaBase
 
 {
 
     private RepositorioCaixa repositorioCaixa;
 
-    public TelaCaixa(RepositorioCaixa repositorioCaixa)
+    public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa")
     {
         this.repositorioCaixa = repositorioCaixa;
     }
 
-    public string? ObterOpcaoMenu()
-    {
-        Console.Clear();
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Gestão de Caixas");
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("1 - Cadastrar caixa");
-        Console.WriteLine("2 - Editar caixa");
-        Console.WriteLine("3 - Excluir caixa");
-        Console.WriteLine("4 - Visualizar caixas");
-        Console.WriteLine("S - Sair");
-        Console.WriteLine("---------------------------------");
-        Console.Write("> ");
-        string? opcaoMenu = Console.ReadLine()?.ToUpper();
-
-        return opcaoMenu;
-    }
-
+   
     public void Cadastrar()
     {
         ObterCabecalho("Cadastrar caixa");
@@ -200,13 +183,7 @@ public class TelaCaixa
 
     }
 
-    private void ObterCabecalho(string cabecalho)
-    {
-        Console.Clear();
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine(cabecalho);
-        Console.WriteLine("---------------------------------");
-    }
+
 
     private Caixa ObterDadosCadastrais()
     {
@@ -256,13 +233,6 @@ public class TelaCaixa
         return novaCaixa;
     }
 
-    private void ExibirMensagem(string mensagem)
-    {
-        System.Console.WriteLine("--------------------------------");
-        System.Console.WriteLine(mensagem);
-        System.Console.WriteLine("--------------------------------");
-        System.Console.WriteLine("Digite ENTER para continuar");
-        Console.ReadLine();
-    }
+
 }
 

@@ -4,36 +4,16 @@ using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
 namespace ClubeDaLeitura.ConsoleApp.Apresentacao;
 
-public class TelaRevista
+public class TelaRevista : TelaBase
 {
     private RepositorioRevista repositorioRevista;
     private RepositorioCaixa repositorioCaixa;
 
-    public TelaRevista(RepositorioRevista repositorioRevista, RepositorioCaixa repositorioCaixa)
+    public TelaRevista(RepositorioRevista repositorioRevista, RepositorioCaixa repositorioCaixa) : base("Revista")
     {
         this.repositorioRevista = repositorioRevista;
         this.repositorioCaixa = repositorioCaixa;
     }
-
-    public string ObterOpcaoMenu()
-    {
-        Console.Clear();
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Gestão de Revistas");
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("1 - Cadastrar revista");
-        Console.WriteLine("2 - Editar revista");
-        Console.WriteLine("3 - Excluir revista");
-        Console.WriteLine("4 - Visualizar revista");
-        Console.WriteLine("S - Sair");
-        Console.WriteLine("---------------------------------");
-        Console.Write("> ");
-        string? opcaoMenu = Console.ReadLine()?.ToUpper();
-
-        return opcaoMenu;
-
-    }
-
     public void Cadastrar()
     {
         ObterCabecalho("cadastrar revista");
@@ -209,14 +189,6 @@ public class TelaRevista
         }
     }
 
-    private void ObterCabecalho(string cabecalho)
-    {
-        Console.Clear();
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine(cabecalho);
-        Console.WriteLine("---------------------------------");
-    }
-
     private Revista ObterDadosCadastrais()
     {
         System.Console.Write("Digite o titulo da revista: ");
@@ -289,16 +261,4 @@ public class TelaRevista
 
         Console.WriteLine("---------------------------------");
     }
-
-    private void ExibirMensagem(string mensagem)
-    {
-        System.Console.WriteLine("--------------------------------");
-        System.Console.WriteLine(mensagem);
-        System.Console.WriteLine("--------------------------------");
-        System.Console.WriteLine("Digite ENTER para continuar");
-        Console.ReadLine();
-    }
-
-
-
 }

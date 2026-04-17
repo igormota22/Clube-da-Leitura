@@ -3,11 +3,11 @@ using ClubeDaLeitura.ConsoleApp.Dominio;
 
 namespace ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
-public class RepositorioBase
+public abstract class RepositorioBase
 {
     protected EntidadeBase?[] registros = new EntidadeBase[100];
 
-        public void Cadastrar(EntidadeBase novaEntidade)
+    public void Cadastrar(EntidadeBase novaEntidade)
     {
         for (int i = 0; i < registros.Length; i++)
         {
@@ -70,7 +70,7 @@ public class RepositorioBase
 
             if (c.Id == idSelecionado)
             {
-              registros[i] = null;
+                registros[i] = null;
                 return true;
             }
         }
