@@ -39,7 +39,7 @@ public class TelaRevista
         ObterCabecalho("cadastrar revista");
         Revista novaRevista = ObterDadosCadastrais();
 
-        string[] erros = novaRevista.Verificar();
+        string[] erros = novaRevista.Validar();
 
         System.Console.WriteLine("-----------------------------------");
 
@@ -91,7 +91,7 @@ public class TelaRevista
 
         Revista novaRevista = ObterDadosCadastrais();
 
-        string[] erros = novaRevista.Verificar();
+        string[] erros = novaRevista.Validar();
 
         System.Console.WriteLine("-----------------------------------");
 

@@ -1,39 +1,20 @@
-using System;
-using System.Dynamic;
-using System.Security.Cryptography;
 
 namespace ClubeDaLeitura.ConsoleApp.Dominio;
 
-public class Caixa
+public class Caixa : EntidadeBase
 {
-    public string Id { get; set; } = string.Empty;
     public string Etiqueta { get; set; } = string.Empty;
     public string Cor { get; set; } = string.Empty;
     public int DiasDeEmprestimo { get; set; } = 7;
 
     public Caixa(string etiqueta, string cor, int diasDeEmprestimo)
     {
-        Id = Convert
-        .ToHexString(RandomNumberGenerator.GetBytes(20))
-        .ToLower()
-        .Substring(0, 7);
-
         Etiqueta = etiqueta;
         Cor = cor;
         DiasDeEmprestimo = diasDeEmprestimo;
     }
 
-    public Caixa AtualizarDados(Caixa caixaAtualizada)
-    {
-        Etiqueta = caixaAtualizada.Etiqueta;
-        Cor = caixaAtualizada.Cor;
-        DiasDeEmprestimo = caixaAtualizada.DiasDeEmprestimo;
-
-        return caixaAtualizada;
-
-    }
-
-    public string[] Validar()
+    public override string[] Validar()
     {
         string erros = string.Empty;
 
@@ -52,5 +33,14 @@ public class Caixa
         }
 
         return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);
+    }
+
+    public override void AtualizarDados(EntidadeBase entidadeAtualizada)
+    {
+        Caixa caixaAtualizada = (Caixa)entidadeAtualizada;
+
+        Etiqueta = caixaAtualizada.Etiqueta;
+        Cor = caixaAtualizada.Cor;
+        DiasDeEmprestimo = caixaAtualizada.DiasDeEmprestimo;
     }
 }
