@@ -7,141 +7,16 @@ namespace ClubeDaLeitura.ConsoleApp.Apresentacao;
 public class TelaCaixa : TelaBase
 
 {
-
     private RepositorioCaixa repositorioCaixa;
 
-    public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa")
+    public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa",repositorioCaixa)
     {
         this.repositorioCaixa = repositorioCaixa;
     }
 
    
-    public void Cadastrar()
-    {
-        ObterCabecalho("Cadastrar caixa");
-        Caixa novaCaixa = ObterDadosCadastrais();
-
-        string[] erros = novaCaixa.Validar();
-
-        System.Console.WriteLine("-----------------------------------");
-
-        if (erros.Length > 0)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            for (int i = 0; i < erros.Length; i++)
-            {
-                string erro = erros[i];
-
-                Console.WriteLine(erro);
-            }
-
-
-            Console.ResetColor();
-            System.Console.WriteLine("-----------------------------------");
-            System.Console.WriteLine("Digite ENTER para continuar");
-            Console.ReadLine();
-
-            Cadastrar();
-            return;
-
-        }
-
-        repositorioCaixa.Cadastrar(novaCaixa);
-
-        ExibirMensagem("O registro foi cadastrado com sucesso");
-    }
-    public void Editar()
-    {
-        ObterCabecalho("editar caixa");
-
-        Visualizar(deveApresentar: false);
-
-        string? idSelecionado;
-
-        do
-        {
-            System.Console.Write("Informe o id que do registro que deseja editar: ");
-            idSelecionado = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
-            {
-                break;
-            }
-        } while (true);
-
-        Caixa novaCaixa = ObterDadosCadastrais();
-
-        string[] erros = novaCaixa.Validar();
-
-        System.Console.WriteLine("-----------------------------------");
-
-        if (erros.Length > 0)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            for (int i = 0; i < erros.Length; i++)
-            {
-                string erro = erros[i];
-
-                Console.WriteLine(erro);
-            }
-
-
-            Console.ResetColor();
-            System.Console.WriteLine("-----------------------------------");
-            System.Console.WriteLine("Digite ENTER para continuar");
-            Console.ReadLine();
-
-            Editar();
-            return;
-
-        }
-
-        bool conseguiuEditar = repositorioCaixa.Editar(idSelecionado, novaCaixa);
-
-        if (!conseguiuEditar)
-        {
-            ExibirMensagem("O registro não foi encontrado");
-            return;
-
-        }
-
-        ExibirMensagem("O registro foi atualizado com sucesso");
-    }
-
-    public void Excluir()
-    {
-        ObterCabecalho("excluir caixa");
-
-        Visualizar(deveApresentar: false);
-
-        string? idSelecionado;
-
-        do
-        {
-            System.Console.Write("Informe o id que do registro que deseja excluir: ");
-            idSelecionado = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
-            {
-                break;
-            }
-        } while (true);
-
-        bool conseguiuExcluir = repositorioCaixa.Excluir(idSelecionado);
-
-        if (!conseguiuExcluir)
-        {
-            ExibirMensagem("O registro não foi encontrado");
-            return;
-
-        }
-
-        ExibirMensagem("O registro foi excluido com sucesso");
-    }
-
-    public void Visualizar(bool deveApresentar)
+ 
+    public override void Visualizar(bool deveApresentar)
     {
         if (deveApresentar)
 
@@ -183,9 +58,7 @@ public class TelaCaixa : TelaBase
 
     }
 
-
-
-    private Caixa ObterDadosCadastrais()
+    protected override EntidadeBase ObterDadosCadastrais()
     {
         System.Console.Write("Informe a etiqueta da caixa: ");
         string? etiqueta = Console.ReadLine();
