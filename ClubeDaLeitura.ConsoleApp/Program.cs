@@ -15,7 +15,7 @@ TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
 Caixa caixa = new Caixa("lancamento", "Vermelha", 3);
 repositorioCaixa.Cadastrar(caixa);
 
-Revista revista = new Revista("batman", 55, 1947, caixa);
+Revista revista = new Revista("batman", 55, 1947, caixa, "Disponivel");
 repositorioRevista.Cadastrar(revista);
 
 Amigo amigo = new Amigo("Igor", "Rafaela", "4999089867");

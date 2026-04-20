@@ -8,13 +8,15 @@ public class Revista : EntidadeBase
     public int NumeroDeEdicao { get; set; }
     public int AnoDePublicacao { get; set; }
     public Caixa Caixa { get; set; }
+    public string Status { get; set; }
 
-    public Revista(string titulo, int numeroDeEdicao, int anoDePublicacao, Caixa caixa)
+    public Revista(string titulo, int numeroDeEdicao, int anoDePublicacao, Caixa caixa, string status)
     {
         Titulo = titulo;
         NumeroDeEdicao = numeroDeEdicao;
         AnoDePublicacao = anoDePublicacao;
         Caixa = caixa;
+        Status = status;
     }
 
     public override string[] Validar()
@@ -62,5 +64,6 @@ public class Revista : EntidadeBase
         NumeroDeEdicao = revistaAtualizada.NumeroDeEdicao;
         AnoDePublicacao = revistaAtualizada.AnoDePublicacao;
         Caixa = revistaAtualizada.Caixa;
+        Status = revistaAtualizada.Status;
     }
 }

@@ -21,9 +21,9 @@ public class TelaRevista : TelaBase
             ObterCabecalho("visualizar revistas");
 
         Console.WriteLine(
-           "{0, -7} | {1, -25} | {2, -6} | {3, -4} | {4, -15}",
-           "Id", "Título", "Edição", "Ano", "Caixa"
-       );
+      "{0, -7} | {1, -25} | {2, -6} | {3, -4} | {4, -12} | {5, -15}",
+      "Id", "Título", "Edição", "Ano", "Status", "Caixa"
+  );
 
         EntidadeBase?[] revistas = repositorioRevista.SelecionarTodos();
 
@@ -38,6 +38,7 @@ public class TelaRevista : TelaBase
             Console.Write("{0, -25} | ", r.Titulo);
             Console.Write("{0, -6} | ", r.NumeroDeEdicao);
             Console.Write("{0, -4} | ", r.AnoDePublicacao);
+            Console.Write("{0, -6} |", r.Status);
 
             string corSelecionada = r.Caixa.Cor;
 
@@ -75,6 +76,28 @@ public class TelaRevista : TelaBase
         System.Console.Write("Digite o ano de publicação: ");
         int anoDePublicacao = Convert.ToInt32(Console.ReadLine());
 
+        System.Console.WriteLine("1 - Disponivel");
+        System.Console.WriteLine("2 - Emprestada");
+        System.Console.WriteLine("3 - Reservada");
+        System.Console.Write("Escolha uma das opçoes:");
+        string opcaoDeStatus = Console.ReadLine() ?? string.Empty;
+
+        string status = string.Empty;
+
+        if (opcaoDeStatus == "1")
+        {
+            status = "Disponivel";
+        }
+        else if (opcaoDeStatus == "2")
+        {
+            status = "Emprestada";
+        }
+        else
+        {
+            status = "Reservada";
+        }
+
+
         VisualizarCaixas();
 
         string idCaixa;
@@ -93,7 +116,7 @@ public class TelaRevista : TelaBase
 
         Caixa caixaSelecionada = (Caixa)repositorioCaixa.SelecionarPorId(idCaixa);
 
-        return new Revista(titulo, numeroDeEdicao, anoDePublicacao, caixaSelecionada);
+        return new Revista(titulo, numeroDeEdicao, anoDePublicacao, caixaSelecionada, status);
     }
 
     private void VisualizarCaixas()
