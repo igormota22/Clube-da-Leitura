@@ -4,34 +4,58 @@ namespace ClubeDaLeitura.ConsoleApp.Dominio;
 
 public class Emprestimo : EntidadeBase
 {
-    public Amigo amigo { get; set; }
-    public Revista revista { get; set; }
-    public DateTime dataDeEmprestimo { get; set; } = DateTime.Now;
-    public DateTime dataDeDevolucao { get; set; }
-    public string status { get; set; } = string.Empty;
+    public Amigo Amigo { get; set; }
+    public Revista Revista { get; set; }
+    public DateTime DataDeEmprestimo { get; set; } = DateTime.Now;
+    public DateTime DataDeDevolucao { get; set; }
+    public string Status { get; set; }
 
-    public Emprestimo(Amigo amigo, Revista revista, DateTime dataDeEmprestimo, DateTime dataDeDevolucao, string status)
+    public Emprestimo(Amigo amigo, Revista revista)
     {
-        this.amigo = amigo;
-        this.revista = revista;
-        this.dataDeEmprestimo = dataDeEmprestimo;
-        this.dataDeDevolucao = dataDeDevolucao;
-        this.status = status;
+        Amigo = amigo;
+        Revista = revista;
+        DataDeEmprestimo = DateTime.Now;
+        DataDeDevolucao = DataDeEmprestimo.AddDays(revista.Caixa.DiasDeEmprestimo);
+        Status = "Aberto";
     }
+
+    public void AtualizarStatus()
+    {
+        if (Status == "Aberto" && DataDeEmprestimo > DataDeDevolucao)
+        {
+            Status = "Atrasado";
+        }
+
+
+    }
+
+    public void Concluir()
+    {
+        if (Status == "Aberto" || Status == "Atrasado")
+        {
+            Status = "Concluído";
+            Revista.Status = "Disponível";
+        }
+    }
+
 
     public override string[] Validar()
     {
-        throw new NotImplementedException();
+        string erros = string.Empty;
+
+        if (Amigo == null)
+            erros += "O campo 'Amigo' é obrigatório;";
+
+        if (Revista == null)
+            erros += "O campo 'Revista' é obrigatório;";
+        else if (Revista.Status != "Disponível")
+            erros += "A revista selecionada não está disponível;";
+
+        return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);
     }
 
     public override void AtualizarDados(EntidadeBase entidadeAtualizada)
     {
-        Emprestimo emprestimoAtualizado = (Emprestimo)entidadeAtualizada;
-
-        amigo = emprestimoAtualizado.amigo;
-        revista = emprestimoAtualizado.revista;
-        dataDeEmprestimo = emprestimoAtualizado.dataDeEmprestimo;
-        dataDeDevolucao = emprestimoAtualizado.dataDeDevolucao;
-        status = emprestimoAtualizado.status;
+        throw new NotImplementedException();
     }
 }

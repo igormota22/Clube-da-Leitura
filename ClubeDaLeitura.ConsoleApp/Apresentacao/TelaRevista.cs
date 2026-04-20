@@ -76,28 +76,6 @@ public class TelaRevista : TelaBase
         System.Console.Write("Digite o ano de publicação: ");
         int anoDePublicacao = Convert.ToInt32(Console.ReadLine());
 
-        System.Console.WriteLine("1 - Disponivel");
-        System.Console.WriteLine("2 - Emprestada");
-        System.Console.WriteLine("3 - Reservada");
-        System.Console.Write("Escolha uma das opçoes:");
-        string opcaoDeStatus = Console.ReadLine() ?? string.Empty;
-
-        string status = string.Empty;
-
-        if (opcaoDeStatus == "1")
-        {
-            status = "Disponivel";
-        }
-        else if (opcaoDeStatus == "2")
-        {
-            status = "Emprestada";
-        }
-        else
-        {
-            status = "Reservada";
-        }
-
-
         VisualizarCaixas();
 
         string idCaixa;
@@ -116,7 +94,7 @@ public class TelaRevista : TelaBase
 
         Caixa caixaSelecionada = (Caixa)repositorioCaixa.SelecionarPorId(idCaixa);
 
-        return new Revista(titulo, numeroDeEdicao, anoDePublicacao, caixaSelecionada, status);
+        return new Revista(titulo, numeroDeEdicao, anoDePublicacao, caixaSelecionada);
     }
 
     private void VisualizarCaixas()

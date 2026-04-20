@@ -7,7 +7,7 @@ public abstract class RepositorioBase
 {
     protected EntidadeBase?[] registros = new EntidadeBase[100];
 
-    public void Cadastrar(EntidadeBase novaEntidade)
+    public virtual void Cadastrar(EntidadeBase novaEntidade)
     {
         for (int i = 0; i < registros.Length; i++)
         {
