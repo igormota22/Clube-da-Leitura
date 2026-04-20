@@ -9,13 +9,13 @@ public class TelaCaixa : TelaBase
 {
     private RepositorioCaixa repositorioCaixa;
 
-    public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa",repositorioCaixa)
+    public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa", repositorioCaixa)
     {
         this.repositorioCaixa = repositorioCaixa;
     }
 
-   
- 
+
+
     public override void Visualizar(bool deveApresentar)
     {
         if (deveApresentar)
