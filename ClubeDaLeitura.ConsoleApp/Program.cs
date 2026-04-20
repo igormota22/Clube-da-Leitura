@@ -10,6 +10,7 @@ RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
 
 TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
 TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
 
 Caixa caixa = new Caixa("lancamento", "Vermelha", 3);
 repositorioCaixa.Cadastrar(caixa);
@@ -77,8 +78,6 @@ while (true)
         {
             opcaoMenuInterno = telaRevista.ObterOpcaoMenu();
 
-
-
             if (opcaoMenuInterno == "S")
             {
                 Console.Clear();
@@ -104,7 +103,30 @@ while (true)
         }
         else if (opcaoMenuPrincipal == "3")
         {
+            opcaoMenuInterno = telaAmigo.ObterOpcaoMenu();
 
+            if (opcaoMenuInterno == "S")
+            {
+                Console.Clear();
+                break;
+            }
+
+            else if (opcaoMenuInterno == "1")
+            {
+                telaAmigo.Cadastrar();
+            }
+            else if (opcaoMenuInterno == "2")
+            {
+                telaAmigo.Editar();
+            }
+            else if (opcaoMenuInterno == "3")
+            {
+                telaAmigo.Excluir();
+            }
+            else if (opcaoMenuInterno == "4")
+            {
+                telaAmigo.Visualizar(deveApresentar: true);
+            }
         }
 
         else if (opcaoMenuPrincipal == "4")
