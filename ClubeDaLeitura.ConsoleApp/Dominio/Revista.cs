@@ -8,7 +8,7 @@ public class Revista : EntidadeBase
     public int NumeroDeEdicao { get; set; }
     public int AnoDePublicacao { get; set; }
     public Caixa Caixa { get; set; }
-    public string Status { get; set; } = "Disponivel";
+    public string Status { get; set; }
 
     public Revista(string titulo, int numeroDeEdicao, int anoDePublicacao, Caixa caixa)
     {
@@ -16,6 +16,7 @@ public class Revista : EntidadeBase
         NumeroDeEdicao = numeroDeEdicao;
         AnoDePublicacao = anoDePublicacao;
         Caixa = caixa;
+        Status = "Disponivel";
     }
 
     public override string[] Validar()
