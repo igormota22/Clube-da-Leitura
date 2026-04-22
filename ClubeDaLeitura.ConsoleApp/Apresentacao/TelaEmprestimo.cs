@@ -128,7 +128,7 @@ public class TelaEmprestimo
             }
         } while (true);
 
-        Emprestimo emprestimoSelecionado = (Emprestimo)repositorioEmprestimo.SelecionarPorId(idSelecionado);
+        Emprestimo emprestimoSelecionado = repositorioEmprestimo.SelecionarPorId(idSelecionado);
 
         if (emprestimoSelecionado == null)
         {
@@ -156,7 +156,7 @@ public class TelaEmprestimo
 );
         Console.WriteLine("--------------------------------------------------------------------------------------");
 
-        EntidadeBase[] registros = repositorioEmprestimo.SelecionarTodos();
+        Emprestimo[] registros = repositorioEmprestimo.SelecionarTodos();
 
         int qtdAbertos = 0;
         int qtdAtrasados = 0;
@@ -166,7 +166,7 @@ public class TelaEmprestimo
         {
             if (registros[i] == null) continue;
 
-            Emprestimo e = (Emprestimo)registros[i];
+            Emprestimo e = registros[i];
             e.AtualizarStatus();
 
             Console.Write(

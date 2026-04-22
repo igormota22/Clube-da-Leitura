@@ -1,9 +1,11 @@
 using System;
+using System.Security.Cryptography;
 
 namespace ClubeDaLeitura.ConsoleApp.Dominio;
 
-public class Emprestimo : EntidadeBase
+public class Emprestimo
 {
+    public string Id { get; set; } = string.Empty;
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
     public DateTime DataDeEmprestimo { get; set; } = DateTime.Now;
@@ -12,6 +14,11 @@ public class Emprestimo : EntidadeBase
 
     public Emprestimo(Amigo amigo, Revista revista)
     {
+        Id = Convert
+      .ToHexString(RandomNumberGenerator.GetBytes(20))
+      .ToLower()
+      .Substring(0, 7);
+
         Amigo = amigo;
         Revista = revista;
         DataDeEmprestimo = DateTime.Now;
@@ -39,7 +46,7 @@ public class Emprestimo : EntidadeBase
     }
 
 
-    public override string[] Validar()
+    public string[] Validar()
     {
         string erros = string.Empty;
 
@@ -54,8 +61,4 @@ public class Emprestimo : EntidadeBase
         return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);
     }
 
-    public override void AtualizarDados(EntidadeBase entidadeAtualizada)
-    {
-        throw new NotImplementedException();
-    }
 }

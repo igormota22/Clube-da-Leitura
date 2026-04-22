@@ -3,14 +3,21 @@ using ClubeDaLeitura.ConsoleApp.Dominio;
 
 namespace ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
-public class RepositorioEmprestimo : RepositorioBase
+public class RepositorioEmprestimo
 {
-    public override void Cadastrar(EntidadeBase novaEntidade)
+    protected Emprestimo?[] registros = new Emprestimo[100];
+    public void Cadastrar(Emprestimo novoEmprestimo)
     {
-        base.Cadastrar(novaEntidade);
+        for (int i = 0; i < registros.Length; i++)
+        {
+            if (registros[i] == null)
+            {
+                registros[i] = novoEmprestimo;
+                break;
+            }
+        }
 
-        Emprestimo e = (Emprestimo)novaEntidade;
-        e.Revista.Status = "Emprestada";
+        novoEmprestimo.Revista.Status = "Emprestada";
     }
 
     public bool AmigoTemEmprestimoAtivo(string idAmigo)
@@ -24,5 +31,31 @@ public class RepositorioEmprestimo : RepositorioBase
                 return true;
         }
         return false;
+    }
+
+      public Emprestimo? SelecionarPorId(string idSelecionado)
+    {
+        Emprestimo? EmprestimoSelecionado = null;
+
+        for (int i = 0; i < registros.Length; i++)
+        {
+            Emprestimo? e = registros[i];
+
+            if (e == null)
+                continue;
+
+            if (e.Id == idSelecionado)
+            {
+                EmprestimoSelecionado = e;
+                break;
+            }
+        }
+
+        return EmprestimoSelecionado;
+    }
+
+    public Emprestimo[] SelecionarTodos()
+    {
+        return registros;
     }
 }
