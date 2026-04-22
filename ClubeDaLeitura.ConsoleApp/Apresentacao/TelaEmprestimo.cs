@@ -143,6 +143,14 @@ public class TelaEmprestimo
             return;
         }
 
+        System.Console.Write("Deseja mesmo efetuar a devolução? (S/n)");
+        string? opcaoDevolucao = Console.ReadLine()?.ToUpper();
+
+        if (opcaoDevolucao != "S")
+        {
+            return;
+        }
+
         emprestimoSelecionado.Concluir();
         ExibirMensagem("Devolução registrada com sucesso");
     }
@@ -153,7 +161,7 @@ public class TelaEmprestimo
 
         Console.WriteLine(
    "{0, -7} | {1, -20} | {2, -25} | {3, -12} | {4, -12} | {5, -10}",
-   "Id", "Amigo", "Revista", "Empréstimo", "Devolução", "Status"
+   "Id", "Amigo", "Revista", "Abertura", "Devolução", "Status"
 );
         Console.WriteLine("--------------------------------------------------------------------------------------");
 
@@ -189,7 +197,7 @@ public class TelaEmprestimo
                 Console.ForegroundColor = ConsoleColor.Green;
                 qtdConcluidos++;
             }
-            else // Aberto
+            else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 qtdAbertos++;

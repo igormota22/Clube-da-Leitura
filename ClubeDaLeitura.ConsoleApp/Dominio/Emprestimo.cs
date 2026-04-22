@@ -58,7 +58,7 @@ public class Emprestimo
 
         if (Revista == null)
             erros += "O campo 'Revista' é obrigatório;";
-        else if (Revista.Status != StatusRevista.Disponivel)
+        else if (Revista.Status != StatusRevista.Emprestada)
             erros += "A revista selecionada não está disponível;";
 
         return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);

@@ -5,14 +5,14 @@ namespace ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
 public class RepositorioEmprestimo
 {
-    protected Emprestimo?[] registros = new Emprestimo[100];
+    private Emprestimo?[] emprestimos = new Emprestimo[100];
     public void Cadastrar(Emprestimo novoEmprestimo)
     {
-        for (int i = 0; i < registros.Length; i++)
+        for (int i = 0; i < emprestimos.Length; i++)
         {
-            if (registros[i] == null)
+            if (emprestimos[i] == null)
             {
-                registros[i] = novoEmprestimo;
+                emprestimos[i] = novoEmprestimo;
                 break;
             }
         }
@@ -22,11 +22,11 @@ public class RepositorioEmprestimo
 
     public bool AmigoTemEmprestimoAtivo(string idAmigo)
     {
-        for (int i = 0; i < registros.Length; i++)
+        for (int i = 0; i < emprestimos.Length; i++)
         {
-            if (registros[i] == null) continue;
+            if (emprestimos[i] == null) continue;
 
-            Emprestimo? e = (Emprestimo)registros[i];
+            Emprestimo? e = emprestimos[i];
             if (e.Amigo.Id == idAmigo && e.Status == StatusEmprestimo.Aberto)
                 return true;
         }
@@ -37,9 +37,9 @@ public class RepositorioEmprestimo
     {
         Emprestimo? EmprestimoSelecionado = null;
 
-        for (int i = 0; i < registros.Length; i++)
+        for (int i = 0; i < emprestimos.Length; i++)
         {
-            Emprestimo? e = registros[i];
+            Emprestimo? e = emprestimos[i];
 
             if (e == null)
                 continue;
@@ -56,6 +56,6 @@ public class RepositorioEmprestimo
 
     public Emprestimo[] SelecionarTodos()
     {
-        return registros;
+        return emprestimos;
     }
 }
