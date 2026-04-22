@@ -61,7 +61,7 @@ public class TelaCaixa : TelaBase
     protected override EntidadeBase ObterDadosCadastrais()
     {
         System.Console.Write("Informe a etiqueta da caixa: ");
-        string? etiqueta = Console.ReadLine();
+        string? etiqueta = Console.ReadLine() ?? string.Empty;
 
         Console.WriteLine("---------------------------------");
         System.Console.WriteLine("Selecione uma das cores validas");
@@ -99,7 +99,8 @@ public class TelaCaixa : TelaBase
         }
 
         System.Console.Write("Informe o tempo de emprestimo das revistas da caixa: ");
-        int diasDeEmprestimo = Convert.ToInt32(Console.ReadLine());
+        int diasDeEmprestimo;
+        int.TryParse(Console.ReadLine(), out diasDeEmprestimo);
 
         Caixa novaCaixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
 

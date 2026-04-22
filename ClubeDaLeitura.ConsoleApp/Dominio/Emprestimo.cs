@@ -13,7 +13,11 @@ public class Emprestimo
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
     public DateTime DataDeEmprestimo { get; set; } = DateTime.Now;
-    public DateTime DataDeDevolucao { get; }
+    public DateTime DataDeDevolucao {
+        get 
+        {
+            return DataDeEmprestimo.AddDays(Revista.Caixa.DiasDeEmprestimo);
+        } }
     public StatusEmprestimo Status { get; set; }
 
     public Emprestimo(Amigo amigo, Revista revista)
@@ -26,7 +30,13 @@ public class Emprestimo
         Amigo = amigo;
         Revista = revista;
         DataDeEmprestimo = DateTime.Now;
-        DataDeDevolucao = DataDeEmprestimo.AddDays(revista.Caixa.DiasDeEmprestimo);
+        
+    }
+
+    public void Abrir()
+    {
+       DateTime previaDevolucao = DataDeDevolucao;
+       Revista.Status = StatusRevista.Emprestada; 
     }
 
     public void AtualizarStatus()

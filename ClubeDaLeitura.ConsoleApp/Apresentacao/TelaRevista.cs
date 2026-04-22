@@ -24,6 +24,7 @@ public class TelaRevista : TelaBase
       "{0, -7} | {1, -25} | {2, -6} | {3, -4} | {4, -12} | {5, -15}",
       "Id", "Título", "Edição", "Ano", "Status", "Caixa"
   );
+        Console.WriteLine("--------------------------------------------------------------------------------------");
 
         EntidadeBase?[] revistas = repositorioRevista.SelecionarTodos();
 
@@ -34,29 +35,34 @@ public class TelaRevista : TelaBase
             if (r == null)
                 continue;
 
-            Console.Write("{0, -7} | ", r.Id);
-            Console.Write("{0, -25} | ", r.Titulo);
-            Console.Write("{0, -6} | ", r.NumeroDeEdicao);
-            Console.Write("{0, -4} | ", r.AnoDePublicacao);
-            Console.Write("{0, -6} |", r.Status);
+            Console.Write("{0, -7} | {1, -25} | {2, -6} | {3, -4} | ",
+                r.Id, r.Titulo, r.NumeroDeEdicao, r.AnoDePublicacao);
 
-            string corSelecionada = r.Caixa.Cor;
 
-            if (corSelecionada == "Vermelha")
+            if (r.Status.ToString() == "Disponivel")
+                Console.ForegroundColor = ConsoleColor.Green;
+            else if (r.Status.ToString() == "Emprestada")
                 Console.ForegroundColor = ConsoleColor.Red;
 
-            else if (corSelecionada == "Verde")
-                Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("{0, -12}", r.Status);
+            Console.ResetColor();
 
-            else if (corSelecionada == "Azul")
+
+            Console.Write(" | ");
+
+            if (r.Caixa.Cor == "Vermelha")
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (r.Caixa.Cor == "Verde")
+                Console.ForegroundColor = ConsoleColor.Green;
+            else if (r.Caixa.Cor == "Azul")
                 Console.ForegroundColor = ConsoleColor.Blue;
 
-            Console.Write("{0, -10}", r.Caixa.Cor);
-
+            Console.Write("{0, -15}", r.Caixa.Etiqueta);
             Console.ResetColor();
-            Console.WriteLine();
 
+            Console.WriteLine();
         }
+        Console.WriteLine("--------------------------------------------------------------------------------------");
 
         if (deveApresentar)
         {
@@ -65,16 +71,20 @@ public class TelaRevista : TelaBase
         }
     }
 
+
+
     protected override EntidadeBase ObterDadosCadastrais()
     {
         System.Console.Write("Digite o titulo da revista: ");
         string titulo = Console.ReadLine();
 
         System.Console.Write("Digite a edição: ");
-        int numeroDeEdicao = Convert.ToInt32(Console.ReadLine());
+        int numeroDeEdicao;
+        int.TryParse(Console.ReadLine(), out numeroDeEdicao);
 
         System.Console.Write("Digite o ano de publicação: ");
-        int anoDePublicacao = Convert.ToInt32(Console.ReadLine());
+        int anoDePublicacao;
+        int.TryParse(Console.ReadLine(), out anoDePublicacao);
 
         VisualizarCaixas();
 

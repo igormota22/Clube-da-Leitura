@@ -17,7 +17,7 @@ public class RepositorioEmprestimo
             }
         }
 
-        novoEmprestimo.Revista.Status = StatusRevista.Emprestada;
+        
     }
 
     public bool AmigoTemEmprestimoAtivo(string idAmigo)

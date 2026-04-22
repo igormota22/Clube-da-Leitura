@@ -94,6 +94,7 @@ public class TelaEmprestimo
         if (revistaSelecionada == null)
         {
             ExibirMensagem("Registro não encontrado");
+            return;
         }
 
         if (revistaSelecionada.Status != StatusRevista.Disponivel)
@@ -103,6 +104,7 @@ public class TelaEmprestimo
         }
 
         Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada);
+        novoEmprestimo.Abrir();
         repositorioEmprestimo.Cadastrar(novoEmprestimo);
 
         ExibirMensagem("Emprestimo efetuado");

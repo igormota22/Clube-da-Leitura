@@ -36,6 +36,7 @@ public class Revista : EntidadeBase
 
         }
 
+
         if (NumeroDeEdicao < 0)
         {
             erros += "Informe um numero maior ou igual a 0;";
