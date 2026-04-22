@@ -17,7 +17,7 @@ public class RepositorioEmprestimo
             }
         }
 
-        novoEmprestimo.Revista.Status = "Emprestada";
+        novoEmprestimo.Revista.Status = StatusRevista.Emprestada;
     }
 
     public bool AmigoTemEmprestimoAtivo(string idAmigo)
@@ -27,13 +27,13 @@ public class RepositorioEmprestimo
             if (registros[i] == null) continue;
 
             Emprestimo? e = (Emprestimo)registros[i];
-            if (e.Amigo.Id == idAmigo && e.Status == "Aberto")
+            if (e.Amigo.Id == idAmigo && e.Status == StatusEmprestimo.Aberto)
                 return true;
         }
         return false;
     }
 
-      public Emprestimo? SelecionarPorId(string idSelecionado)
+    public Emprestimo? SelecionarPorId(string idSelecionado)
     {
         Emprestimo? EmprestimoSelecionado = null;
 

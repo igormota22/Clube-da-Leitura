@@ -96,9 +96,10 @@ public class TelaEmprestimo
             ExibirMensagem("Registro não encontrado");
         }
 
-        if (revistaSelecionada.Status != "Disponivel")
+        if (revistaSelecionada.Status != StatusRevista.Disponivel)
         {
             ExibirMensagem("Essa revista não esta disponivel para emprestimo");
+            return;
         }
 
         Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada);
@@ -136,7 +137,7 @@ public class TelaEmprestimo
             return;
         }
 
-        if (emprestimoSelecionado.Status == "Concluido")
+        if (emprestimoSelecionado.Status == StatusEmprestimo.Concluido)
         {
             ExibirMensagem("Ja foi feita a devolução desse emprestimo");
             return;
@@ -178,12 +179,12 @@ public class TelaEmprestimo
                 e.DataDeDevolucao.ToString("dd/MM/yyyy")
             );
 
-            if (e.Status == "Atrasado")
+            if (e.Status == StatusEmprestimo.Atrasado)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 qtdAtrasados++;
             }
-            else if (e.Status == "Concluído")
+            else if (e.Status == StatusEmprestimo.Concluido)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 qtdConcluidos++;

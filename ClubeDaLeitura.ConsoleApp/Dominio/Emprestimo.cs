@@ -3,14 +3,18 @@ using System.Security.Cryptography;
 
 namespace ClubeDaLeitura.ConsoleApp.Dominio;
 
+public enum StatusEmprestimo
+{
+    Aberto, Atrasado, Concluido
+}
 public class Emprestimo
 {
     public string Id { get; set; } = string.Empty;
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
     public DateTime DataDeEmprestimo { get; set; } = DateTime.Now;
-    public DateTime DataDeDevolucao { get; set; }
-    public string Status { get; set; }
+    public DateTime DataDeDevolucao { get; }
+    public StatusEmprestimo Status { get; set; }
 
     public Emprestimo(Amigo amigo, Revista revista)
     {
@@ -23,14 +27,13 @@ public class Emprestimo
         Revista = revista;
         DataDeEmprestimo = DateTime.Now;
         DataDeDevolucao = DataDeEmprestimo.AddDays(revista.Caixa.DiasDeEmprestimo);
-        Status = "Aberto";
     }
 
     public void AtualizarStatus()
     {
-        if (Status == "Aberto" && DataDeEmprestimo > DataDeDevolucao)
+        if (Status == StatusEmprestimo.Aberto && DataDeEmprestimo > DataDeDevolucao)
         {
-            Status = "Atrasado";
+            Status = StatusEmprestimo.Atrasado;
         }
 
 
@@ -38,10 +41,10 @@ public class Emprestimo
 
     public void Concluir()
     {
-        if (Status == "Aberto" || Status == "Atrasado")
+        if (Status == StatusEmprestimo.Aberto)
         {
-            Status = "Concluído";
-            Revista.Status = "Disponível";
+            Status = StatusEmprestimo.Concluido;
+            Revista.Status = StatusRevista.Disponivel;
         }
     }
 
@@ -55,7 +58,7 @@ public class Emprestimo
 
         if (Revista == null)
             erros += "O campo 'Revista' é obrigatório;";
-        else if (Revista.Status != "Disponível")
+        else if (Revista.Status != StatusRevista.Disponivel)
             erros += "A revista selecionada não está disponível;";
 
         return erros.Split(";", StringSplitOptions.RemoveEmptyEntries);
