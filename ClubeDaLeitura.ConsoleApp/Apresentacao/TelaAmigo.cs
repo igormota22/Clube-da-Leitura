@@ -7,10 +7,12 @@ namespace ClubeDaLeitura.ConsoleApp.Apresentacao;
 public class TelaAmigo : TelaBase
 {
     private RepositorioAmigo repositorioAmigo;
+    private RepositorioEmprestimo repositorioEmprestimo;
 
-    public TelaAmigo(RepositorioAmigo repositorioAmigo) : base("Amigo", repositorioAmigo)
+    public TelaAmigo(RepositorioAmigo repositorioAmigo, RepositorioEmprestimo repositorioEmprestimo) : base("Amigo", repositorioAmigo)
     {
         this.repositorioAmigo = repositorioAmigo;
+        this.repositorioEmprestimo = repositorioEmprestimo;
     }
 
     public override void Visualizar(bool deveApresentar)
@@ -67,5 +69,13 @@ public class TelaAmigo : TelaBase
         Amigo novoAmigo = new Amigo(nome, NomeResponsavel, telefone);
 
         return novoAmigo;
+    }
+
+    protected override string ValidarExclusao(EntidadeBase entidade)
+    {
+        if (repositorioEmprestimo.AmigoTemEmprestimoAtivo(entidade.Id))
+            return "Não é possível excluir. Essa pessoa tem um emprestimo em aberto!";
+
+        return null;
     }
 }

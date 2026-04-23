@@ -34,13 +34,13 @@ public class TelaPrincipal
         Amigo amigo = new Amigo("Igor", "Rafaela", "4999089867");
         repositorioAmigo.Cadastrar(amigo);
 
-        Emprestimo emprestimo = new Emprestimo(amigo,revista);
+        Emprestimo emprestimo = new Emprestimo(amigo, revista);
         emprestimo.Abrir();
         repositorioEmprestimo.Cadastrar(emprestimo);
 
         telaCaixa = new TelaCaixa(repositorioCaixa, repositorioRevista);
         telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
-        telaAmigo = new TelaAmigo(repositorioAmigo);
+        telaAmigo = new TelaAmigo(repositorioAmigo, repositorioEmprestimo);
         telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista, telaAmigo, telaRevista);
     }
 
