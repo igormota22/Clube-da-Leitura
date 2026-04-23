@@ -80,12 +80,16 @@ public abstract class TelaBase
 
         do
         {
-            System.Console.Write("Informe o id que do registro que deseja editar: ");
+            System.Console.Write("Informe o id que do registro que deseja editar ou pressione 'S' para sair: ");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
             {
                 break;
+            }
+            if (idSelecionado.ToUpper() == "S")
+            {
+                return;
             }
         } while (true);
 
@@ -139,14 +143,21 @@ public abstract class TelaBase
 
         do
         {
-            System.Console.Write("Informe o id que do registro que deseja excluir: ");
+            System.Console.Write("Informe o id que do registro que deseja excluir ou pressione 'S' para sair : ");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
             {
                 break;
             }
+
+            if (idSelecionado.ToUpper() == "S")
+            {
+                return;
+            }
         } while (true);
+
+
 
         bool conseguiuExcluir = repositorio.Excluir(idSelecionado);
 
