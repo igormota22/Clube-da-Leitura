@@ -158,6 +158,15 @@ public abstract class TelaBase : ITela
             }
         } while (true);
 
+        EntidadeBase entidade = repositorio.SelecionarPorId(idSelecionado);
+
+        string erro = ValidarExclusao(entidade);
+        if (erro != null)
+        {
+            ExibirMensagem(erro);
+            return;
+        }
+
 
 
         bool conseguiuExcluir = repositorio.Excluir(idSelecionado);
@@ -185,6 +194,11 @@ public abstract class TelaBase : ITela
     }
 
     protected abstract EntidadeBase ObterDadosCadastrais();
+
+    protected virtual string ValidarExclusao(EntidadeBase entidade)
+    {
+        return null;
+    }
 
     protected void ExibirMensagem(string mensagem)
     {

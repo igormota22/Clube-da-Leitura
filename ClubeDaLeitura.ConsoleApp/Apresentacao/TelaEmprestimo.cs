@@ -105,7 +105,6 @@ public class TelaEmprestimo : ITela
         }
 
         Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada);
-        novoEmprestimo.Abrir();
         repositorioEmprestimo.Cadastrar(novoEmprestimo);
 
         ExibirMensagem("Emprestimo efetuado");

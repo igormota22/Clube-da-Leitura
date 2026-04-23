@@ -13,11 +13,12 @@ public class RepositorioEmprestimo
             if (emprestimos[i] == null)
             {
                 emprestimos[i] = novoEmprestimo;
+                novoEmprestimo.Abrir();
                 break;
             }
         }
 
-        
+
     }
 
     public bool AmigoTemEmprestimoAtivo(string idAmigo)

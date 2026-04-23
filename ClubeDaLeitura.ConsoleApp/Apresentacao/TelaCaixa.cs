@@ -16,54 +16,6 @@ public class TelaCaixa : TelaBase
         this.repositorioRevista = repositorioRevista;
     }
 
-    public override void Excluir()
-    {
-        ObterCabecalho("Excluir Caixa");
-
-        Visualizar(deveApresentar: false);
-
-        string? idSelecionado;
-
-        do
-        {
-            System.Console.Write("Informe o id que do registro que deseja excluir ou pressione 'S' para sair : ");
-            idSelecionado = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
-            {
-                break;
-            }
-
-            if (idSelecionado.ToUpper() == "S")
-            {
-                return;
-            }
-        } while (true);
-
-        bool caixaTemRevista = repositorioRevista.TemRevistaNaCaixa(idSelecionado);
-
-        if (caixaTemRevista)
-        {
-            ExibirMensagem("Esta caixa não pode ser excluida pois tem revistas armazenadas");
-            return;
-        }
-
-
-
-        bool conseguiuExcluir = repositorioCaixa.Excluir(idSelecionado);
-
-        if (!conseguiuExcluir)
-        {
-            ExibirMensagem("O registro não foi encontrado");
-            return;
-
-        }
-
-        ExibirMensagem("O registro foi excluido com sucesso");
-    }
-
-
-
     public override void Visualizar(bool deveApresentar)
     {
         if (deveApresentar)
@@ -153,6 +105,14 @@ public class TelaCaixa : TelaBase
         Caixa novaCaixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
 
         return novaCaixa;
+    }
+
+    protected override string ValidarExclusao(EntidadeBase entidade)
+    {
+        if (repositorioRevista.TemRevistaNaCaixa(entidade.Id))
+            return "Não é possível excluir. Caixa possui revistas!";
+
+        return null;
     }
 
 
