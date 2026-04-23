@@ -1,4 +1,5 @@
 using System;
+using ClubeDaLeitura.ConsoleApp.Apresentacao.Base;
 using ClubeDaLeitura.ConsoleApp.Dominio;
 using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
@@ -11,13 +12,18 @@ public class TelaPrincipal
     private RepositorioAmigo repositorioAmigo;
     private RepositorioEmprestimo repositorioEmprestimo;
 
-    public TelaPrincipal(RepositorioCaixa repositorioCaixa, RepositorioRevista repositorioRevista, RepositorioAmigo repositorioAmigo, RepositorioEmprestimo repositorioEmprestimo)
+    private TelaCaixa telaCaixa;
+    private TelaRevista telaRevista;
+    private TelaAmigo telaAmigo;
+    private TelaEmprestimo telaEmprestimo;
+
+    public TelaPrincipal(RepositorioCaixa repositorioCaixa, RepositorioRevista repositorioRevista,
+    RepositorioAmigo repositorioAmigo, RepositorioEmprestimo repositorioEmprestimo)
     {
         this.repositorioCaixa = repositorioCaixa;
         this.repositorioRevista = repositorioRevista;
         this.repositorioAmigo = repositorioAmigo;
         this.repositorioEmprestimo = repositorioEmprestimo;
-
 
         Caixa caixa = new Caixa("lancamento", "Vermelha", 3);
         repositorioCaixa.Cadastrar(caixa);
@@ -27,9 +33,14 @@ public class TelaPrincipal
 
         Amigo amigo = new Amigo("Igor", "Rafaela", "4999089867");
         repositorioAmigo.Cadastrar(amigo);
+
+        telaCaixa = new TelaCaixa(repositorioCaixa);
+        telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+        telaAmigo = new TelaAmigo(repositorioAmigo);
+        telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista, telaAmigo, telaRevista);
     }
 
-    public TelaBase ApresentarMenuPrincipal()
+    public ITela ApresentarMenuPrincipal()
     {
         Console.Clear();
         Console.WriteLine("---------------------------------");
@@ -44,22 +55,26 @@ public class TelaPrincipal
         Console.Write("> ");
         string? opcaoMenuPrincipal = Console.ReadLine()?.ToUpper();
 
-        if(opcaoMenuPrincipal == "1")
+        if (opcaoMenuPrincipal == "1")
         {
-            return new TelaCaixa(repositorioCaixa);
+            return telaCaixa;
         }
-        else if(opcaoMenuPrincipal == "2")
+        else if (opcaoMenuPrincipal == "2")
         {
-            return new TelaRevista(repositorioRevista,repositorioCaixa);
+            return telaRevista;
         }
-        else if(opcaoMenuPrincipal == "3")
+        else if (opcaoMenuPrincipal == "3")
         {
-            return new TelaAmigo(repositorioAmigo);
+            return telaAmigo;
+        }
+        else if (opcaoMenuPrincipal == "4")
+        {
+            return telaEmprestimo;
         }
         else
         {
             return null;
         }
-        
+
     }
 }

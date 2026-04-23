@@ -1,5 +1,6 @@
 ﻿
 using ClubeDaLeitura.ConsoleApp.Apresentacao;
+using ClubeDaLeitura.ConsoleApp.Apresentacao.Base;
 using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
 RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
@@ -11,7 +12,7 @@ TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioCaixa, repositorioRev
 
 while (true)
 {
-    TelaBase telaSelecionada = telaPrincipal.ApresentarMenuPrincipal();
+    ITela telaSelecionada = telaPrincipal.ApresentarMenuPrincipal();
 
     if (telaSelecionada == null)
     {
@@ -29,27 +30,36 @@ while (true)
             break;
         }
 
-        else if (opcaoMenuInterno == "1")
+        if (telaSelecionada is TelaBase)
         {
-            telaSelecionada.Cadastrar();
-        }
-        else if (opcaoMenuInterno == "2")
-        {
-            telaSelecionada.Editar();
-        }
-        else if (opcaoMenuInterno == "3")
-        {
-            telaSelecionada.Excluir();
-        }
-        else if (opcaoMenuInterno == "4")
-        {
-            telaSelecionada.Visualizar(deveApresentar: true);
+            TelaBase telaBase = (TelaBase)telaSelecionada;
+
+            if (opcaoMenuInterno == "1")
+            {
+                telaBase.Cadastrar();
+            }
+            else if (opcaoMenuInterno == "2")
+            {
+                telaBase.Editar();
+            }
+            else if (opcaoMenuInterno == "3")
+            {
+                telaBase.Excluir();
+            }
+            else if (opcaoMenuInterno == "4")
+            {
+                telaBase.Visualizar(deveApresentar: true);
+            }
+
         }
 
-        /*
-        else if (opcaoMenuPrincipal == "4")
+
+
+        else if (telaSelecionada is TelaEmprestimo)
+
         {
-            opcaoMenuInterno = telaEmprestimo.ObterOpcaoMenu();
+            TelaEmprestimo telaEmprestimo = (TelaEmprestimo)telaSelecionada;
+
 
             if (opcaoMenuInterno == "S")
             {
@@ -69,7 +79,8 @@ while (true)
             {
                 telaEmprestimo.Visualizar();
             }
-            */
+
+        }
     }
 }
 

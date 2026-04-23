@@ -1,10 +1,11 @@
 using System;
+using ClubeDaLeitura.ConsoleApp.Apresentacao.Base;
 using ClubeDaLeitura.ConsoleApp.Dominio;
 using ClubeDaLeitura.ConsoleApp.Infraestrutura;
 
 namespace ClubeDaLeitura.ConsoleApp.Apresentacao;
 
-public class TelaEmprestimo
+public class TelaEmprestimo : ITela
 {
     private RepositorioEmprestimo repositorioEmprestimo;
     private RepositorioAmigo repositorioAmigo;
@@ -33,7 +34,7 @@ public class TelaEmprestimo
         Console.WriteLine("S - Sair");
         Console.WriteLine("---------------------------------");
         Console.Write("> ");
-        string opcaoMenu = Console.ReadLine()?.ToUpper() ?? string.Empty;
+        string opcaoMenu = Console.ReadLine()?.ToUpper();
 
         return opcaoMenu;
     }
@@ -42,7 +43,7 @@ public class TelaEmprestimo
     {
         ObterCabecalho("Registrar Emprestimo");
 
-        telaAmigo.Visualizar(false);
+       telaAmigo.Visualizar(false);
 
         string? idSelecionado;
 
