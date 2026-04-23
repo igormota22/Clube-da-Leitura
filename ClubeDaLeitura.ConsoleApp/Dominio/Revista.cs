@@ -2,10 +2,6 @@
 
 namespace ClubeDaLeitura.ConsoleApp.Dominio;
 
-public enum StatusRevista
-{
-    Disponivel,Emprestada
-}
 public class Revista : EntidadeBase
 {
     public string Titulo { get; set; }

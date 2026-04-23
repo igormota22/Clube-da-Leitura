@@ -3,21 +3,19 @@ using System.Security.Cryptography;
 
 namespace ClubeDaLeitura.ConsoleApp.Dominio;
 
-public enum StatusEmprestimo
-{
-    Aberto, Atrasado, Concluido
-}
 public class Emprestimo
 {
     public string Id { get; set; } = string.Empty;
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
     public DateTime DataDeEmprestimo { get; set; } = DateTime.Now;
-    public DateTime DataDeDevolucao {
-        get 
+    public DateTime DataDeDevolucao
+    {
+        get
         {
             return DataDeEmprestimo.AddDays(Revista.Caixa.DiasDeEmprestimo);
-        } }
+        }
+    }
     public StatusEmprestimo Status { get; set; }
 
     public Emprestimo(Amigo amigo, Revista revista)
@@ -30,13 +28,13 @@ public class Emprestimo
         Amigo = amigo;
         Revista = revista;
         DataDeEmprestimo = DateTime.Now;
-        
+
     }
 
     public void Abrir()
     {
-       DateTime previaDevolucao = DataDeDevolucao;
-       Revista.Status = StatusRevista.Emprestada; 
+        DateTime previaDevolucao = DataDeDevolucao;
+        Revista.Status = StatusRevista.Emprestada;
     }
 
     public void AtualizarStatus()
