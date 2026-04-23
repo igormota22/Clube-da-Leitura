@@ -8,10 +8,58 @@ public class TelaCaixa : TelaBase
 
 {
     private RepositorioCaixa repositorioCaixa;
+    private RepositorioRevista repositorioRevista;
 
-    public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa", repositorioCaixa)
+    public TelaCaixa(RepositorioCaixa repositorioCaixa, RepositorioRevista repositorioRevista) : base("Caixa", repositorioCaixa)
     {
         this.repositorioCaixa = repositorioCaixa;
+        this.repositorioRevista = repositorioRevista;
+    }
+
+    public override void Excluir()
+    {
+        ObterCabecalho("Excluir Caixa");
+
+        Visualizar(deveApresentar: false);
+
+        string? idSelecionado;
+
+        do
+        {
+            System.Console.Write("Informe o id que do registro que deseja excluir ou pressione 'S' para sair : ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+            {
+                break;
+            }
+
+            if (idSelecionado.ToUpper() == "S")
+            {
+                return;
+            }
+        } while (true);
+
+        bool caixaTemRevista = repositorioRevista.TemRevistaNaCaixa(idSelecionado);
+
+        if (caixaTemRevista)
+        {
+            ExibirMensagem("Esta caixa não pode ser excluida pois tem revistas armazenadas");
+            return;
+        }
+
+
+
+        bool conseguiuExcluir = repositorioCaixa.Excluir(idSelecionado);
+
+        if (!conseguiuExcluir)
+        {
+            ExibirMensagem("O registro não foi encontrado");
+            return;
+
+        }
+
+        ExibirMensagem("O registro foi excluido com sucesso");
     }
 
 

@@ -34,7 +34,7 @@ public class TelaPrincipal
         Amigo amigo = new Amigo("Igor", "Rafaela", "4999089867");
         repositorioAmigo.Cadastrar(amigo);
 
-        telaCaixa = new TelaCaixa(repositorioCaixa);
+        telaCaixa = new TelaCaixa(repositorioCaixa, repositorioRevista);
         telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
         telaAmigo = new TelaAmigo(repositorioAmigo);
         telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista, telaAmigo, telaRevista);
