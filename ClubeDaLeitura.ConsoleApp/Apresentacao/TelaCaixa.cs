@@ -107,6 +107,15 @@ public class TelaCaixa : TelaBase
         return novaCaixa;
     }
 
+    protected override string ExibirMensagemDeValorRepetido(EntidadeBase entidade)
+    {
+        if (repositorioCaixa.VerificarValoresIguais(entidade))
+        {
+            return "Ja existe uma caixa com essa etiqueta";
+        }
+        return null;
+    }
+
     protected override string ValidarExclusao(EntidadeBase entidade)
     {
         if (repositorioRevista.TemRevistaNaCaixa(entidade.Id))

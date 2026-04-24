@@ -39,6 +39,15 @@ public abstract class TelaBase : ITela
     {
         ObterCabecalho($"Cadastrar {nomeEntidade}");
         EntidadeBase novaEntidade = ObterDadosCadastrais();
+        string repetido = ExibirMensagemDeValorRepetido(novaEntidade);
+
+        if (repetido != null)
+        {
+            ExibirMensagem(repetido);
+
+            Cadastrar();
+            return;
+        }
 
         string[] erros = novaEntidade.Validar();
 
@@ -164,6 +173,8 @@ public abstract class TelaBase : ITela
         if (erro != null)
         {
             ExibirMensagem(erro);
+
+            Excluir();
             return;
         }
 
@@ -196,6 +207,11 @@ public abstract class TelaBase : ITela
     protected abstract EntidadeBase ObterDadosCadastrais();
 
     protected virtual string ValidarExclusao(EntidadeBase entidade)
+    {
+        return null;
+    }
+
+    protected virtual string ExibirMensagemDeValorRepetido(EntidadeBase entidade)
     {
         return null;
     }
