@@ -39,11 +39,18 @@ public class TelaEmprestimo : ITela
         return opcaoMenu;
     }
 
+    public void ExecutarOpcao(string opcao)
+    {
+        if (opcao == "1") Registrar();
+        else if (opcao == "2") Devolver();
+        else if (opcao == "3") Visualizar();
+    }
+
     public void Registrar()
     {
         ObterCabecalho("Registrar Emprestimo");
 
-       telaAmigo.Visualizar(false);
+        telaAmigo.Visualizar(false);
 
         string? idSelecionado;
 

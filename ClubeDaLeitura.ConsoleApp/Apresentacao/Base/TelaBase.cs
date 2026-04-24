@@ -35,6 +35,14 @@ public abstract class TelaBase : ITela
         return opcaoMenu;
     }
 
+    public void ExecutarOpcao(string opcao)
+    {
+        if (opcao == "1") Cadastrar();
+        else if (opcao == "2") Editar();
+        else if (opcao == "3") Excluir();
+        else if (opcao == "4") Visualizar(true);
+    }
+
     public void Cadastrar()
     {
         ObterCabecalho($"Cadastrar {nomeEntidade}");
