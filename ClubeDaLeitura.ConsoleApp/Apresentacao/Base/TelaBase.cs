@@ -151,7 +151,7 @@ public abstract class TelaBase : ITela
         ExibirMensagem("O registro foi atualizado com sucesso");
     }
 
-    public virtual void Excluir()
+    public void Excluir()
     {
         ObterCabecalho($"excluir {nomeEntidade}");
 
