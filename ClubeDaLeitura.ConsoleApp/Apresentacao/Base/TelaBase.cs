@@ -211,10 +211,7 @@ public abstract class TelaBase : ITela
         return null;
     }
 
-    protected virtual string ExibirMensagemDeValorRepetido(EntidadeBase entidade)
-    {
-        return null;
-    }
+    protected abstract string ExibirMensagemDeValorRepetido(EntidadeBase entidade);
 
     protected void ExibirMensagem(string mensagem)
     {

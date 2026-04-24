@@ -55,6 +55,15 @@ public class TelaAmigo : TelaBase
         }
     }
 
+    protected override string ExibirMensagemDeValorRepetido(EntidadeBase entidade)
+    {
+        if (repositorioAmigo.VerificarValoresIguais(entidade))
+        {
+            return "Ja existe uma pessoa com este nome e telefone";
+        }
+        return null;
+    }
+
     protected override EntidadeBase ObterDadosCadastrais()
     {
         System.Console.Write("Informe o nome: ");

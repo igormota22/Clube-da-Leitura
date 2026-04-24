@@ -83,8 +83,5 @@ public abstract class RepositorioBase
         return registros;
     }
 
-    public virtual bool VerificarValoresIguais(EntidadeBase entidade)
-    {
-        return false;
-    }
+    public abstract bool VerificarValoresIguais(EntidadeBase entidade);
 }
