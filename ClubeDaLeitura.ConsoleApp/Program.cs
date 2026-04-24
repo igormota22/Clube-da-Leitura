@@ -11,33 +11,33 @@ static class Program
         Executar();
     }
 
-   private static void Executar()
-{
-    RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
-    RepositorioRevista repositorioRevista = new RepositorioRevista();
-    RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
-    RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-
-    TelaPrincipal telaPrincipal = new TelaPrincipal(
-        repositorioCaixa, repositorioRevista, repositorioAmigo, repositorioEmprestimo
-    );
-
-    while (true)
+    private static void Executar()
     {
-        ITela telaSelecionada = telaPrincipal.ApresentarMenuPrincipal();
+        RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
+        RepositorioRevista repositorioRevista = new RepositorioRevista();
+        RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
+        RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
-        if (telaSelecionada == null) break;
+        TelaPrincipal telaPrincipal = new TelaPrincipal(
+            repositorioCaixa, repositorioRevista, repositorioAmigo, repositorioEmprestimo
+        );
 
         while (true)
         {
-            string opcao = telaSelecionada.ObterOpcaoMenu();
+            ITela telaSelecionada = telaPrincipal.ApresentarMenuPrincipal();
 
-            if (opcao == "S") break;
+            if (telaSelecionada == null) break;
 
-            telaSelecionada.ExecutarOpcao(opcao);
+            while (true)
+            {
+                string opcao = telaSelecionada.ObterOpcaoMenu();
+
+                if (opcao == "S") break;
+
+                telaSelecionada.ExecutarOpcao(opcao);
+            }
         }
     }
-}
 
 }
 
