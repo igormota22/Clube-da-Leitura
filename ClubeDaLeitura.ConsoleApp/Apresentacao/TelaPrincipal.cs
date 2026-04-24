@@ -7,41 +7,17 @@ namespace ClubeDaLeitura.ConsoleApp.Apresentacao;
 
 public class TelaPrincipal
 {
-    private RepositorioCaixa repositorioCaixa;
-    private RepositorioRevista repositorioRevista;
-    private RepositorioAmigo repositorioAmigo;
-    private RepositorioEmprestimo repositorioEmprestimo;
-
     private TelaCaixa telaCaixa;
     private TelaRevista telaRevista;
     private TelaAmigo telaAmigo;
     private TelaEmprestimo telaEmprestimo;
 
-    public TelaPrincipal(RepositorioCaixa repositorioCaixa, RepositorioRevista repositorioRevista,
-    RepositorioAmigo repositorioAmigo, RepositorioEmprestimo repositorioEmprestimo)
-    {
-        this.repositorioCaixa = repositorioCaixa;
-        this.repositorioRevista = repositorioRevista;
-        this.repositorioAmigo = repositorioAmigo;
-        this.repositorioEmprestimo = repositorioEmprestimo;
+    public TelaPrincipal(TelaCaixa telaCaixa, TelaRevista telaRevista,TelaAmigo telaAmigo,  TelaEmprestimo telaEmprestimo)    {
 
-        Caixa caixa = new Caixa("lancamento", "Vermelha", 3);
-        repositorioCaixa.Cadastrar(caixa);
-
-        Revista revista = new Revista("batman", 55, 1947, caixa);
-        repositorioRevista.Cadastrar(revista);
-
-        Amigo amigo = new Amigo("Igor", "Rafaela", "4999089867");
-        repositorioAmigo.Cadastrar(amigo);
-
-        Emprestimo emprestimo = new Emprestimo(amigo, revista);
-        emprestimo.Abrir();
-        repositorioEmprestimo.Cadastrar(emprestimo);
-
-        telaCaixa = new TelaCaixa(repositorioCaixa, repositorioRevista);
-        telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
-        telaAmigo = new TelaAmigo(repositorioAmigo, repositorioEmprestimo);
-        telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista, telaAmigo, telaRevista);
+        this.telaCaixa = telaCaixa;
+        this.telaRevista = telaRevista;
+        this.telaAmigo = telaAmigo;
+        this.telaEmprestimo = telaEmprestimo;
     }
 
     public ITela ApresentarMenuPrincipal()
