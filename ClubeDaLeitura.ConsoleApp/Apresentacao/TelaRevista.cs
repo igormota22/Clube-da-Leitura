@@ -107,6 +107,16 @@ public class TelaRevista : TelaBase
         return new Revista(titulo, numeroDeEdicao, anoDePublicacao, caixaSelecionada);
     }
 
+    protected override string ExibirMensagemDeValorRepetido(EntidadeBase entidade)
+    {
+        Revista revista = (Revista)entidade;
+        if (repositorioRevista.VerificarValoresIguais(entidade))
+        {
+            return "Ja existe uma revista com este titulo e com este numero de edição";
+        }
+        return null;
+    }
+
     private void VisualizarCaixas()
     {
         Console.WriteLine("---------------------------------");
