@@ -56,12 +56,16 @@ public class TelaEmprestimo : ITela
 
         do
         {
-            System.Console.Write("Informe o id da pessoa que deseja fazer o emprestimo: ");
+            System.Console.Write("Informe o id da pessoa que deseja fazer o emprestimo ou pressione 'S' para sair: ");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
             {
                 break;
+            }
+            if (idSelecionado.ToUpper() == "S")
+            {
+                return;
             }
         } while (true);
 
@@ -78,6 +82,8 @@ public class TelaEmprestimo : ITela
         if (repositorioEmprestimo.AmigoTemEmprestimoAtivo(idSelecionado))
         {
             ExibirMensagem("Essa pessoa ja tem um emprestimo ativo");
+
+            Registrar();
             return;
         }
 
@@ -108,6 +114,8 @@ public class TelaEmprestimo : ITela
         if (revistaSelecionada.Status != StatusRevista.Disponivel)
         {
             ExibirMensagem("Essa revista não esta disponivel para emprestimo");
+
+            Registrar();
             return;
         }
 
@@ -129,12 +137,16 @@ public class TelaEmprestimo : ITela
 
         do
         {
-            System.Console.Write("Informe o id do emprestimo que deseja efetuar a devolução: ");
+            System.Console.Write("Informe o id do emprestimo que deseja efetuar a devolução ou pressione 'S' para sair: ");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
             {
                 break;
+            }
+            if (idSelecionado.ToUpper() == "S")
+            {
+                return;
             }
         } while (true);
 

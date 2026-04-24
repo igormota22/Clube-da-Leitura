@@ -40,6 +40,3 @@ static class Program
     }
 
 }
-
-
-
